@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -14,15 +15,180 @@
         android:layout_height="312px"
         android:layout_gravity="top"
         android:layout_marginLeft="145dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="30dp"
         android:layout_marginRight="140dp"
         android:src="@drawable/logoonly">
     </ImageView>
 
     <TextView
         android:text="Create new Account"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_width="365dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="@font/garetbold"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="30sp">
     </TextView>
+
+    <TextView
+        android:text="Just one step closer to a healthier, more hydrated you."
+        android:layout_width="330dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/theseasonsregular"
+        android:lineSpacingExtra="6dp"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="20sp">
+    </TextView>
+
+    <EditText
+        android:hint="E-mail Address"
+        android:layout_width="307dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/rounded_edit_text"
+        android:backgroundTint="@null"
+        android:fontFamily="@font/montserrat"
+        android:paddingStart="16dp"
+        android:paddingLeft="16dp"
+        android:paddingEnd="16dp"
+        android:paddingRight="16dp"
+        android:textColorHint="@color/white"
+        android:textSize="16sp">
+    </EditText>
+
+    <EditText
+        android:hint="Full Name"
+        android:layout_width="307dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="10dp"
+        android:layout_gravity="center"
+        android:background="@drawable/rounded_edit_text"
+        android:backgroundTint="@null"
+        android:fontFamily="@font/montserrat"
+        android:paddingStart="16dp"
+        android:paddingLeft="16dp"
+        android:paddingEnd="16dp"
+        android:paddingRight="16dp"
+        android:textColorHint="@color/white"
+        android:textSize="16sp">
+    </EditText>
+
+    <EditText
+        android:hint="Username"
+        android:layout_width="307dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="10dp"
+        android:layout_gravity="center"
+        android:background="@drawable/rounded_edit_text"
+        android:backgroundTint="@null"
+        android:fontFamily="@font/montserrat"
+        android:paddingStart="16dp"
+        android:paddingLeft="16dp"
+        android:paddingEnd="16dp"
+        android:paddingRight="16dp"
+        android:textColorHint="@color/white"
+        android:textSize="16sp">
+    </EditText>
+
+    <EditText
+        android:hint="Password"
+        android:layout_width="307dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="10dp"
+        android:layout_gravity="center"
+        android:background="@drawable/rounded_edit_text"
+        android:fontFamily="@font/montserrat"
+        android:inputType="textPassword"
+        android:paddingStart="16dp"
+        android:paddingLeft="16dp"
+        android:paddingEnd="16dp"
+        android:paddingRight="16dp"
+        android:textColorHint="@color/white"
+        android:textSize="16sp">
+    </EditText>
+
+    <EditText
+        android:hint="Confirm Password"
+        android:layout_width="307dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:background="@drawable/rounded_edit_text"
+        android:fontFamily="@font/montserrat"
+        android:inputType="textPassword"
+        android:paddingStart="16dp"
+        android:paddingLeft="16dp"
+        android:paddingEnd="16dp"
+        android:paddingRight="16dp"
+        android:textColorHint="@color/white"
+        android:textSize="16sp">
+    </EditText>
+
+    <Button
+        android:text="SIGN UP"
+        android:id="@+id/signUpButton"
+        android:layout_width="307dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/rounded_white_button"
+        android:backgroundTint="#F2F2F2"
+        android:textColor="#015486"
+        android:textSize="16sp"
+        android:fontFamily="@font/montserratbold">
+    </Button>
+
+    <TextView
+        android:id="@+id/termsAndConditionsTextView"
+        android:focusable="false"
+        android:clickable="false"
+        android:longClickable="false"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="-2dp"
+        android:layout_gravity="center_horizontal"
+        android:textAlignment="center"
+        android:layout_marginBottom="30dp"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/garetregular"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="80dp"
+        android:text="Already have an account?"
+        android:textSize="15sp"
+        android:fontFamily="@font/kollektifregular"
+        android:textColor="@color/white">
+    </TextView>
+
+    <com.limtechlabs.hydrahelp.UnderlinedTextView
+        style="@style/LoginLink"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="260dp"
+        android:layout_marginTop="-23dp"
+        android:fontFamily="@font/montserratbold"
+        android:text="Login"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:id="@+id/loginLinkTextView" />
+
+    <ImageView
+        android:layout_width="569dp"
+        android:layout_height="249dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="-90dp"
+        android:src="@drawable/safetymark">
+    </ImageView>
 
 </LinearLayout>

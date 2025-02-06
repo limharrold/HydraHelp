@@ -17,11 +17,14 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import android.content.pm.ActivityInfo;
+
 public class Login extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_login);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -30,10 +33,13 @@ public class Login extends AppCompatActivity {
             return insets;
 
 
-        });
-        TextView hydraTextView = findViewById(R.id.hydraTextView); // Make sure the ID matches!
 
-        if (hydraTextView != null) { // Always check for null!
+        });
+
+        // HYDRA HELP TEXT COLOR CONFIGURATION YAN
+
+        TextView hydraTextView = findViewById(R.id.hydraTextView);
+        if (hydraTextView != null) {
             String text = "Hydra Help";
             SpannableString spannableString = new SpannableString(text);
 
@@ -46,13 +52,24 @@ public class Login extends AppCompatActivity {
             hydraTextView.setText(spannableString);
 
         }
-        TextView myTextView = findViewById(R.id.myTextView); // Assuming you have a TextView with this ID in your layout
-        if (myTextView != null) {
+
+        // FORGOT PASSWORD CLICK LINK CONFIGURATION
+
+        TextView forgotPasswordTextView = findViewById(R.id.forgotPasswordButton);
+        if (forgotPasswordTextView != null) {
             String text = "Forgot Password?";
             SpannableString spannableString = new SpannableString(text);
             spannableString.setSpan(new UnderlineSpan(), 0, text.length(), 0);
-            myTextView.setText(spannableString);
+            forgotPasswordTextView.setText(spannableString);
+
+            forgotPasswordTextView.setOnClickListener(v -> {
+                Intent intent = new Intent(this, ResetPassword.class);
+                startActivity(intent);
+            });
+
         }
+
+        // SIGN IN BUTTON LOGIC/CONFIGS
 
         Button signInButton = findViewById(R.id.signInButton);
 
@@ -61,6 +78,8 @@ public class Login extends AppCompatActivity {
             Log.d("SignInButton", "Sign in button clicked"); // Example
             // Replace this with your actual sign-in logic.
         });
+
+        // REGISTER CLICK LINK CONFIGURATION
 
         TextView registerLinkTextView = findViewById(R.id.registerLinkTextView);
         String signUpText = "SIGN UP NOW";
