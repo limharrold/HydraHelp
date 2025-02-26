@@ -35,7 +35,8 @@
         android:paddingEnd="16dp"
         android:paddingRight="16dp"
         android:textColorHint="@color/white"
-        android:textSize="16sp">
+        android:textSize="16sp"
+        android:id="@+id/loginEmail">
     </EditText>
 
     <EditText
@@ -52,7 +53,8 @@
         android:paddingEnd="16dp"
         android:paddingRight="16dp"
         android:textColorHint="@color/white"
-        android:textSize="16sp">
+        android:textSize="16sp"
+        android:id="@+id/loginPassword">
     </EditText>
 
     <TextView

@@ -59,6 +59,7 @@
         android:paddingEnd="16dp"
         android:paddingRight="16dp"
         android:textColorHint="@color/white"
+        android:id="@+id/signUpEmail"
         android:textSize="16sp">
     </EditText>
 
@@ -110,7 +111,9 @@
         android:paddingEnd="16dp"
         android:paddingRight="16dp"
         android:textColorHint="@color/white"
-        android:textSize="16sp">
+        android:textSize="16sp"
+        android:id="@+id/signUpPassword"
+        >
     </EditText>
 
     <EditText
@@ -175,6 +178,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="260dp"
+        android:layout_marginBottom="25dp"
         android:layout_marginTop="-23dp"
         android:fontFamily="@font/montserratbold"
         android:text="Login"
@@ -184,11 +188,12 @@
         android:id="@+id/loginLinkTextView" />
 
     <ImageView
-        android:layout_width="569dp"
-        android:layout_height="249dp"
+        android:layout_width="225dp"
+        android:layout_height="25dp"
         android:layout_gravity="center"
-        android:layout_marginTop="-90dp"
+        android:scaleType="centerCrop"
         android:src="@drawable/safetymark">
+
     </ImageView>
 
 </LinearLayout>
