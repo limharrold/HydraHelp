@@ -4,14 +4,18 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class ResetPassword extends AppCompatActivity {
+    FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,12 +29,30 @@ public class ResetPassword extends AppCompatActivity {
             return insets;
         });
 
-        Button signInButton = findViewById(R.id.resetPasswordButton);
+        mAuth = FirebaseAuth.getInstance();
 
-        signInButton.setOnClickListener(v -> {
-            // Handle sign in click (e.g., start a new activity, validate credentials, etc.)
-            Log.d("ResetPasswordButton", "Reset Password Button clicked"); // Example
-            // Replace this with your actual sign-in logic.
+        Button resetPasswordButton = findViewById(R.id.resetPasswordButton);
+
+        resetPasswordButton.setOnClickListener(v -> {
+            Log.d("ResetPasswordButton", "Reset Password Button clicked");
+            EditText emailEditText = findViewById(R.id.emailResetPassText); // Get email EditText
+            String email = emailEditText.getText().toString();
+
+            if (email.isEmpty()) {
+                Toast.makeText(ResetPassword.this, "Please enter your email address.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            mAuth.sendPasswordResetEmail(email)
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(ResetPassword.this, "Password reset email sent. Check your inbox.", Toast.LENGTH_SHORT).show();
+                            finish(); // Close the ResetPassword activity
+                        } else {
+                            Toast.makeText(ResetPassword.this, "Error sending reset email: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            Log.e("ResetPassword", "Error: " + task.getException().getMessage());
+                        }
+                    });
         });
     }
 }
