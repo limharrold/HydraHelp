@@ -7,6 +7,8 @@ import android.text.Spannable; // Import for Spannable
 import android.text.SpannableString; // Import for SpannableString
 import android.text.style.ForegroundColorSpan; // Import for ForegroundColorSpan
 import android.util.Log; // Import for Log
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView; // Import for TextView
 import android.text.style.UnderlineSpan;
@@ -47,6 +49,7 @@ public class Login extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
 
         // HYDRA HELP TEXT COLOR CONFIGURATION YAN
 
@@ -153,5 +156,35 @@ public class Login extends AppCompatActivity {
             startActivity(intent);
         });
 
+        //
+        EditText loginPassword = findViewById(R.id.loginPassword);
+
+        loginPassword.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                final int DRAWABLE_RIGHT = 2;
+
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    if (event.getRawX() >= (loginPassword.getRight() - loginPassword.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                        togglePasswordVisibility(loginPassword);
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
     }
-}
+
+        private void togglePasswordVisibility(EditText passwordEditText) {
+            if (passwordEditText.getTag().equals("passwordHidden")) {
+                passwordEditText.setInputType(android.text.InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                passwordEditText.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_visibility_on, 0);
+                passwordEditText.setTag("passwordVisible");
+            } else {
+                passwordEditText.setInputType(android.text.InputType.TYPE_CLASS_TEXT | android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                passwordEditText.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_visibility_off, 0);
+                passwordEditText.setTag("passwordHidden");
+            }
+            passwordEditText.setSelection(passwordEditText.getText().length());
+        }
+    }

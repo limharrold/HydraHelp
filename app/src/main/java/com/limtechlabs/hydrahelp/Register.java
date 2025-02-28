@@ -17,6 +17,7 @@ import android.text.style.StyleSpan;
 import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.util.Patterns;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -78,7 +79,41 @@ public class Register extends AppCompatActivity {
 
         TextView termsAndConditionsTextView = findViewById(R.id.termsAndConditionsTextView);
         setUpTermsAndConditions(termsAndConditionsTextView);
+
+        // PASSWORD VISIBILITY TOGGLE
+
+        signUpPassword.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                final int DRAWABLE_RIGHT = 2;
+
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    if (event.getRawX() >= (signUpPassword.getRight() - ((TextView) signUpPassword).getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                        togglePasswordVisibility(signUpPassword);
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
+
+        confirmPasswordText.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                final int DRAWABLE_RIGHT = 2;
+
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    if (event.getRawX() >= (confirmPasswordText.getRight() - ((TextView) confirmPasswordText).getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                        togglePasswordVisibility(confirmPasswordText);
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
     }
+
+    // TEXT WATCHERS TO VALIDATE FIELDS
 
     private void setupTextWatchers() {
         signUpEmail.addTextChangedListener(new TextWatcher() {
@@ -127,6 +162,7 @@ public class Register extends AppCompatActivity {
         });
     }
 
+    // HANDLE SIGN UP BUTTON CLICK
     private void handleSignUp() {
         String email = signUpEmail.getText().toString();
         String password = signUpPassword.getText().toString();
@@ -226,12 +262,25 @@ public class Register extends AppCompatActivity {
         }
     }
 
+    private void togglePasswordVisibility(EditText passwordEditText) {
+        if (passwordEditText.getTag().equals("passwordHidden")) {
+            passwordEditText.setInputType(android.text.InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+            passwordEditText.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_visibility_on, 0);
+            passwordEditText.setTag("passwordVisible");
+        } else {
+            passwordEditText.setInputType(android.text.InputType.TYPE_CLASS_TEXT | android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD);
+            passwordEditText.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_visibility_off, 0);
+            passwordEditText.setTag("passwordHidden");
+        }
+        passwordEditText.setSelection(passwordEditText.getText().length());
+    }
+
     private void setErrorState(EditText editText) {
-        editText.getBackground().mutate().setColorFilter(ContextCompat.getColor(this, R.color.red), PorterDuff.Mode.SRC_ATOP);
+        editText.setBackgroundResource(R.drawable.error_rounded_edit_text);
     }
 
     private void resetErrorState(EditText editText) {
-        editText.getBackground().mutate().clearColorFilter();
+        editText.setBackgroundResource(R.drawable.rounded_edit_text);
     }
 
     private void setUpTermsAndConditions(TextView termsAndConditionsTextView) {

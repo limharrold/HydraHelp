@@ -5,5 +5,5 @@
     <color name="hydra_light_blue">#8fd8ff</color>
     <color name="transparent">@android:color/transparent</color>
     <color name="link_color">#007AFF</color>
-    <color name="red">#FF0000</color>
+    <color name="red">#FF4343</color>
     </resources>

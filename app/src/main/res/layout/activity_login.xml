@@ -54,7 +54,10 @@
         android:paddingRight="16dp"
         android:textColorHint="@color/white"
         android:textSize="16sp"
-        android:id="@+id/loginPassword">
+        android:id="@+id/loginPassword"
+        android:drawableEnd="@drawable/ic_visibility_off"
+        android:drawableTint="@color/white"
+        android:tag="passwordHidden">
     </EditText>
 
     <TextView
