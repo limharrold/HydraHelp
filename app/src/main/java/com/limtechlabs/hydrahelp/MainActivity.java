@@ -1,6 +1,7 @@
 package com.limtechlabs.hydrahelp;
 
 import android.Manifest;
+import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Intent;
@@ -8,6 +9,7 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -31,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
     private static final String CHANNEL_ID = "my_channel_id";
     private static final int NOTIFICATION_PERMISSION_REQUEST_CODE = 101;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
         // LOGOUT BUTTON LOGIC
 
         mAuth = FirebaseAuth.getInstance();
@@ -63,6 +66,28 @@ public class MainActivity extends AppCompatActivity {
         });
 
         createNotificationChannel();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        runninginBackground();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d("MainActivity", "onDestroy called");
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+        notificationManager.cancel(2);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d("MainActivity", "onStart called");
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+        notificationManager.cancel(2);
     }
 
     private void checkNotificationPermission() {
@@ -91,8 +116,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = "My Channel";
-            String description = "Channel Description";
+            CharSequence name = "HydraHelp Push Notification";
+            String description = "This Notification is for all HydraHelp Push Notification";
             int importance = NotificationManager.IMPORTANCE_DEFAULT;
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
             channel.setDescription(description);
@@ -100,6 +125,7 @@ public class MainActivity extends AppCompatActivity {
             notificationManager.createNotificationChannel(channel);
         }
     }
+
 
     private void showNotification() {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
@@ -110,15 +136,27 @@ public class MainActivity extends AppCompatActivity {
 
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
             return;
         }
         notificationManager.notify(1, builder.build());
+    }
+
+    private void runninginBackground() {
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
+                .setOngoing(true)
+                .setSmallIcon(R.drawable.logoonly)
+                .setContentTitle("HydraHelp")
+                .setContentText("HydraHelp Running in Background")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+        Notification notification = builder.build();
+        notification.flags |= Notification.FLAG_ONGOING_EVENT | Notification.FLAG_NO_CLEAR;
+
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        notificationManager.notify(2, builder.build());
+
     }
 }
