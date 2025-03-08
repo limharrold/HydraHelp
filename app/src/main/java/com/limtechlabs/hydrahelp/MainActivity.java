@@ -14,6 +14,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.google.android.material.navigation.NavigationView;
@@ -27,12 +29,91 @@ import android.os.Build;
 import android.view.Window;
 import android.view.WindowManager;
 
+import android.widget.LinearLayout;
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawerLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        LinearLayout historyLayout = findViewById(R.id.history_layout);
+        LinearLayout profileLayout = findViewById(R.id.profile_layout);
+        ImageView historyImage = findViewById(R.id.history_image);
+        ImageView profileImage = findViewById(R.id.profile_image);
+
+        ActiveAwareFAB fab = findViewById(R.id.fab_hydrate);
+        LinearLayout historyButton = findViewById(R.id.history_layout);
+        LinearLayout profileButton = findViewById(R.id.profile_layout);
+
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fab.setActive(true);
+                // ... other actions for FAB click ...
+            }
+        });
+
+        historyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fab.setActive(false);
+                // ... other actions for History click ...
+            }
+        });
+
+        profileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fab.setActive(false);
+                // ... other actions for Profile click ...
+            }
+        });
+
+        // OOPS BAWAL MALITO HAHAHAHA, JUSKO PO
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fab.setActive(true); // Activate FAB when clicked
+                historyLayout.setSelected(false); // Deselect history
+                profileLayout.setSelected(false); // Deselect profile
+
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, new HomeFragment())
+                        .commit();
+            }
+        });
+
+        historyImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fab.setActive(false); // Deactivate FAB when history image is clicked
+                historyLayout.setSelected(true);
+                profileLayout.setSelected(false);
+                // Navigate to HistoryFragment
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, new HistoryFragment())
+                        .commit();
+            }
+        });
+
+        profileImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fab.setActive(false); // Deactivate FAB when profile image is clicked
+                profileLayout.setSelected(true);
+                historyLayout.setSelected(false);
+                // Navigate to ProfileFragment
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, new ProfileFragment())
+                        .commit();
+            }
+        });
+
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
@@ -80,6 +161,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Log.d("Firestore", "get failed with ", task.getException());
             }
         });
+
     }
 
     // UPDATE THE NAV_HEADER NAME AND EMAIL
@@ -131,4 +213,5 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             super.onBackPressed();
         }
     }
+
 }

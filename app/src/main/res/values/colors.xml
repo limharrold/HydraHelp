@@ -7,5 +7,6 @@
     <color name="link_color">#007AFF</color>
     <color name="red">#FF4343</color>
     <color name="hydramaincolor">#015486</color>
+    <color name="bottomnav">#85015486</color>
     <color name="toolbarcolor">#2ea5e4</color>
     </resources>
